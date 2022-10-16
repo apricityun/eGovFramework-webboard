@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.wsy.service.BoardMapper">
+
+<!-- board List  -->
+	<select id="selectBoardList" resultType="egovframework.wsy.vo.BoardVO">
+		select boardId, title, content, writer, regDate, updateDate
+		from board_tb
+		order by boardId DESC
+	</select>
+	
+<!-- board Detail -->
+	<select id="selectBoardDetail" parameterType="Integer" resultType="egovframework.wsy.vo.BoardVO">
+		select boardId, title, content, writer, regDate, updateDate
+		from board_tb
+		where boardId = #{boardId}
+	</select>
+	
+<!-- board insert -->	
+	<insert id="insertBoard" parameterType="egovframework.wsy.vo.BoardVO">
+		insert into board_tb(title, content, writer, regDate)
+		values(#{title}, #{content}, #{writer}, now())
+	</insert>
+
+<!-- board update -->	
+	<update id="updateBoard" parameterType="egovframework.wsy.vo.BoardVO">
+		update board_tb set
+		title = #{title}, content = #{content}, updateDate = now()
+		where boardId = #{boardId}
+	</update>
+
+<!-- board delete -->
+	<delete id="deleteBoard" parameterType="egovframework.wsy.vo.BoardVO">
+		delete from board_tb
+		where boardId = #{boardId}
+	</delete>
+</mapper>
